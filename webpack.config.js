@@ -61,7 +61,8 @@ module.exports = (env, options) => {
         patterns: [
           { from: 'assets', to: 'assets' },
           { from: 'src/taskpane/taskpane.css', to: 'src/taskpane/taskpane.css' },
-          { from: 'src/settings/settings.css', to: 'src/settings/settings.css' }
+          { from: 'src/settings/settings.css', to: 'src/settings/settings.css' },
+          { from: 'manifest.xml', to: 'manifest.xml' }
         ]
       })
     ],
