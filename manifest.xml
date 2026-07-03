@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <!-- Basic Settings -->
+  <Id>116a310c-6082-4371-9a8d-e63c4c036d75</Id>
+  <Version>1.0.0.4</Version>
+  <ProviderName>AI Word Plugin</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="AI 写作助手"/>
+  <Description DefaultValue="Word 智能 AI 写作助手插件"/>
+
+  <!-- Icons -->
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+  <SupportUrl DefaultValue="https://localhost:3000"/>
+
+  <!-- Hosts -->
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+
+  <!-- Default Settings -->
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
+  </DefaultSettings>
+
+  <!-- Permissions -->
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <!-- Version Overrides -->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="AIGroup">
+                <Label resid="GroupLabel"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+
+                <Control xsi:type="Button" id="TriggerAIInline">
+                  <Label resid="TriggerAIInline.Label"/>
+                  <Supertip>
+                    <Title resid="TriggerAIInline.Label"/>
+                    <Description resid="TriggerAIInline.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+
+                <Control xsi:type="Button" id="SettingsItem">
+                  <Label resid="SettingsItem.Label"/>
+                  <Supertip>
+                    <Title resid="SettingsItem.Label"/>
+                    <Description resid="SettingsItem.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="SettingsItem.Url"/>
+                  </Action>
+                </Control>
+
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+      </bt:Images>
+
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/src/commands/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
+        <bt:Url id="SettingsItem.Url" DefaultValue="https://localhost:3000/src/settings/settings.html"/>
+      </bt:Urls>
+
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="AI 工具"/>
+        <bt:String id="TriggerAIInline.Label" DefaultValue="AI 写作助手"/>
+        <bt:String id="SettingsItem.Label" DefaultValue="API 设置"/>
+      </bt:ShortStrings>
+
+      <bt:LongStrings>
+        <bt:String id="TriggerAIInline.Tooltip" DefaultValue="打开 AI 写作助手主面板"/>
+        <bt:String id="SettingsItem.Tooltip" DefaultValue="配置 AI 服务连接参数"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API 设置 - AI 写作助手</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="settings.css"/>
+</head>
+<body>
+  <div id="settings-app">
+    <!-- 顶部 -->
+    <header class="settings-header">
+      <div class="header-brand">
+        <div class="brand-icon">✨</div>
+        <div>
+          <h1>API 设置</h1>
+          <p>配置 AI 服务连接参数</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="settings-main">
+      <!-- API 提供商选择 -->
+      <section class="settings-section">
+        <h2 class="section-title">AI 服务提供商</h2>
+        <div class="provider-grid">
+          <label class="provider-card" data-provider="openai">
+            <input type="radio" name="provider" value="openai" id="provider-openai"/>
+            <div class="provider-logo openai-logo">OpenAI</div>
+            <span class="provider-name">OpenAI</span>
+            <span class="provider-desc">GPT-4o, GPT-4, GPT-3.5</span>
+          </label>
+
+          <label class="provider-card" data-provider="azure">
+            <input type="radio" name="provider" value="azure" id="provider-azure"/>
+            <div class="provider-logo azure-logo">Az</div>
+            <span class="provider-name">Azure OpenAI</span>
+            <span class="provider-desc">企业级 Azure 服务</span>
+          </label>
+
+          <label class="provider-card" data-provider="custom">
+            <input type="radio" name="provider" value="custom" id="provider-custom"/>
+            <div class="provider-logo custom-logo">⚙</div>
+            <span class="provider-name">自定义</span>
+            <span class="provider-desc">兼容 OpenAI API</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 连接配置 -->
+      <section class="settings-section">
+        <h2 class="section-title">连接配置</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="apiKey">
+            API Key <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="apiKey"
+              class="form-input"
+              placeholder="sk-..."
+              autocomplete="off"
+            />
+            <button class="toggle-visibility" id="toggleApiKey" title="显示/隐藏">
+              <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-hint">您的 API 密钥将加密存储在本地</div>
+        </div>
+
+        <div class="form-group" id="baseUrlGroup">
+          <label class="form-label" for="baseUrl">API Base URL</label>
+          <input
+            type="url"
+            id="baseUrl"
+            class="form-input"
+            placeholder="https://api.openai.com/v1"
+          />
+          <div class="form-hint">留空使用默认端点</div>
+        </div>
+
+        <div class="form-group" id="deploymentGroup" style="display:none">
+          <label class="form-label" for="deployment">部署名称（Azure）</label>
+          <input
+            type="text"
+            id="deployment"
+            class="form-input"
+            placeholder="my-gpt4-deployment"
+          />
+        </div>
+      </section>
+
+      <!-- 模型配置 -->
+      <section class="settings-section">
+        <h2 class="section-title">模型配置</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="modelSelect">模型</label>
+          <select id="modelSelect" class="form-input form-select">
+            <optgroup label="GPT-4 系列">
+              <option value="gpt-4o">GPT-4o（推荐）</option>
+              <option value="gpt-4o-mini">GPT-4o Mini（快速）</option>
+              <option value="gpt-4-turbo">GPT-4 Turbo</option>
+              <option value="gpt-4">GPT-4</option>
+            </optgroup>
+            <optgroup label="GPT-3.5 系列">
+              <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            </optgroup>
+            <optgroup label="其他">
+              <option value="custom">自定义模型名称</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group" id="customModelGroup" style="display:none">
+          <label class="form-label" for="customModel">自定义模型名称</label>
+          <input
+            type="text"
+            id="customModel"
+            class="form-input"
+            placeholder="例如：claude-3-5-sonnet、deepseek-chat"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="temperature">
+            创造性（Temperature）
+            <span class="value-badge" id="tempValue">0.7</span>
+          </label>
+          <div class="slider-wrapper">
+            <span class="slider-label">严谨</span>
+            <input type="range" id="temperature" class="slider" min="0" max="1" step="0.1" value="0.7"/>
+            <span class="slider-label">创意</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="maxTokens">最大输出长度（Max Tokens）</label>
+          <select id="maxTokens" class="form-input form-select">
+            <option value="512">512（简短）</option>
+            <option value="1024">1024（适中）</option>
+            <option value="2048" selected>2048（推荐）</option>
+            <option value="4096">4096（长篇）</option>
+            <option value="8192">8192（超长）</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 测试连接 -->
+      <section class="settings-section">
+        <div class="test-connection-area">
+          <button class="test-btn" id="testConnectionBtn">
+            <span id="testBtnText">🔗 测试连接</span>
+          </button>
+          <div class="test-result" id="testResult"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部操作栏 -->
+    <footer class="settings-footer">
+      <button class="btn-cancel" id="cancelBtn">取消</button>
+      <button class="btn-save" id="saveBtn">
+        <span id="saveBtnText">💾 保存设置</span>
+      </button>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="/settings.js"></script>
+</body>
+</html>

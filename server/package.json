@@ -1,0 +1,16 @@
+{
+  "name": "word-ai-addin-server",
+  "version": "1.0.0",
+  "description": "AI 写作助手本地服务器",
+  "main": "server.js",
+  "bin": "server.js",
+  "pkg": {
+    "scripts": "server.js",
+    "assets": [],
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "../dist"
+  },
+  "dependencies": {}
+}

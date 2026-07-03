@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 写作助手</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+  <!-- Office.js 核心库 -->
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="taskpane.css"/>
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+      <div class="header-logo">
+        <div class="logo-icon">✨</div>
+        <span class="logo-text">AI 写作助手</span>
+      </div>
+      <button class="settings-btn" id="openSettingsBtn" title="API 设置">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content" id="mainContent">
+
+      <!-- 欢迎页（默认） -->
+      <section class="panel active" id="panel-home">
+        <div class="welcome-card">
+          <div class="welcome-icon">🤖</div>
+          <h2>AI 写作助手</h2>
+          <p>选择下方功能开始使用，或在文档中选中文字后点击功能按钮</p>
+        </div>
+
+        <!-- 功能网格 -->
+        <div class="feature-grid">
+          <button class="feature-card" data-action="trigger-inline">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-info">
+              <span class="feature-title">触发行内补全</span>
+              <span class="feature-desc">Ctrl+J</span>
+            </div>
+          </button>
+
+          <button class="feature-card" data-action="edit">
+            <div class="feature-icon">✏️</div>
+            <div class="feature-info">
+              <span class="feature-title">编辑</span>
+              <span class="feature-desc">优化写作、修复语法</span>
+            </div>
+          </button>
+
+          <button class="feature-card" data-action="tone">
+            <div class="feature-icon">💬</div>
+            <div class="feature-info">
+              <span class="feature-title">语气</span>
+              <span class="feature-desc">专业 / 口语</span>
+            </div>
+          </button>
+
+          <button class="feature-card" data-action="translate">
+            <div class="feature-icon">🌐</div>
+            <div class="feature-info">
+              <span class="feature-title">翻译</span>
+              <span class="feature-desc">多语言智能翻译</span>
+            </div>
+          </button>
+
+          <button class="feature-card" data-action="generate">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-info">
+              <span class="feature-title">生成</span>
+              <span class="feature-desc">解释、总结、续写</span>
+            </div>
+          </button>
+
+          <button class="feature-card" data-action="custom-rewrite">
+            <div class="feature-icon">🪄</div>
+            <div class="feature-info">
+              <span class="feature-title">自定义改写</span>
+              <span class="feature-desc">按指令改写内容</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- 编辑面板 -->
+      <section class="panel" id="panel-edit">
+        <div class="panel-header">
+          <button class="back-btn" data-target="home">← 返回</button>
+          <h3>✏️ 编辑</h3>
+        </div>
+        <div class="sub-menu">
+          <button class="sub-item" data-edit-action="optimize">
+            <span class="sub-icon">⚡</span>
+            <div>
+              <div class="sub-title">优化写作</div>
+              <div class="sub-desc">提升文字表达质量</div>
+            </div>
+          </button>
+          <button class="sub-item" data-edit-action="fix-grammar">
+            <span class="sub-icon">✅</span>
+            <div>
+              <div class="sub-title">修复拼写与语法</div>
+              <div class="sub-desc">自动检测并修正错误</div>
+            </div>
+          </button>
+          <button class="sub-item" data-edit-action="shorten">
+            <span class="sub-icon">📏</span>
+            <div>
+              <div class="sub-title">缩短内容</div>
+              <div class="sub-desc">精简文字，保留核心意思</div>
+            </div>
+          </button>
+          <button class="sub-item" data-edit-action="expand">
+            <span class="sub-icon">📖</span>
+            <div>
+              <div class="sub-title">扩展内容</div>
+              <div class="sub-desc">丰富细节，扩充篇幅</div>
+            </div>
+          </button>
+          <button class="sub-item" data-edit-action="simplify">
+            <span class="sub-icon">💡</span>
+            <div>
+              <div class="sub-title">简化表达</div>
+              <div class="sub-desc">使用更简单易懂的语言</div>
+            </div>
+          </button>
+        </div>
+        <div class="result-area" id="editResult"></div>
+      </section>
+
+      <!-- 语气面板 -->
+      <section class="panel" id="panel-tone">
+        <div class="panel-header">
+          <button class="back-btn" data-target="home">← 返回</button>
+          <h3>💬 语气</h3>
+        </div>
+        <div class="sub-menu">
+          <button class="sub-item" data-tone-action="professional">
+            <span class="sub-icon">👔</span>
+            <div>
+              <div class="sub-title">专业语气</div>
+              <div class="sub-desc">正式、专业的商务表达</div>
+            </div>
+          </button>
+          <button class="sub-item" data-tone-action="casual">
+            <span class="sub-icon">😊</span>
+            <div>
+              <div class="sub-title">口语语气</div>
+              <div class="sub-desc">轻松、自然的日常表达</div>
+            </div>
+          </button>
+        </div>
+        <div class="result-area" id="toneResult"></div>
+      </section>
+
+      <!-- 翻译面板 -->
+      <section class="panel" id="panel-translate">
+        <div class="panel-header">
+          <button class="back-btn" data-target="home">← 返回</button>
+          <h3>🌐 翻译</h3>
+        </div>
+        <div class="translate-options">
+          <label class="option-label">目标语言</label>
+          <div class="lang-grid">
+            <button class="lang-btn active" data-lang="zh">中文</button>
+            <button class="lang-btn" data-lang="en">英语</button>
+            <button class="lang-btn" data-lang="ja">日语</button>
+            <button class="lang-btn" data-lang="ko">韩语</button>
+            <button class="lang-btn" data-lang="fr">法语</button>
+            <button class="lang-btn" data-lang="de">德语</button>
+            <button class="lang-btn" data-lang="es">西班牙语</button>
+            <button class="lang-btn" data-lang="ru">俄语</button>
+          </div>
+          <button class="action-btn primary" id="translateBtn">开始翻译</button>
+        </div>
+        <div class="result-area" id="translateResult"></div>
+      </section>
+
+      <!-- 生成面板 -->
+      <section class="panel" id="panel-generate">
+        <div class="panel-header">
+          <button class="back-btn" data-target="home">← 返回</button>
+          <h3>🎯 生成</h3>
+        </div>
+        <div class="sub-menu">
+          <button class="sub-item" data-generate-action="explain">
+            <span class="sub-icon">ℹ️</span>
+            <div>
+              <div class="sub-title">解释这段内容</div>
+              <div class="sub-desc">详细解释所选文字的含义</div>
+            </div>
+          </button>
+          <button class="sub-item" data-generate-action="summarize">
+            <span class="sub-icon">📋</span>
+            <div>
+              <div class="sub-title">总结内容</div>
+              <div class="sub-desc">提取关键信息，生成摘要</div>
+            </div>
+          </button>
+          <button class="sub-item" data-generate-action="continue">
+            <span class="sub-icon">✍️</span>
+            <div>
+              <div class="sub-title">继续写作</div>
+              <div class="sub-desc">基于上下文自动续写</div>
+            </div>
+          </button>
+        </div>
+        <div class="result-area" id="generateResult"></div>
+      </section>
+
+      <!-- 自定义改写面板 -->
+      <section class="panel" id="panel-custom-rewrite">
+        <div class="panel-header">
+          <button class="back-btn" data-target="home">← 返回</button>
+          <h3>🪄 自定义改写</h3>
+        </div>
+        <div class="custom-rewrite-area">
+          <label class="option-label">改写指令</label>
+          <textarea class="custom-input" id="customInstruction" placeholder="例如：将这段话改写成更加正式的商务邮件风格，语言简洁，重点突出..."></textarea>
+          <button class="action-btn primary" id="customRewriteBtn">开始改写</button>
+        </div>
+        <div class="result-area" id="customRewriteResult"></div>
+      </section>
+
+    </main>
+
+    <!-- 底部结果操作栏（当有结果时显示） -->
+    <footer class="result-footer" id="resultFooter" style="display:none">
+      <button class="footer-btn" id="insertBtn">📄 插入到文档</button>
+      <button class="footer-btn secondary" id="replaceBtn">🔄 替换选中文字</button>
+      <button class="footer-btn ghost" id="copyBtn">📋 复制</button>
+    </footer>
+
+    <!-- 加载遮罩 -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p id="loadingText">AI 处理中...</p>
+      </div>
+    </div>
+
+    <!-- Toast 通知 -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="/taskpane.js"></script>
+</body>
+</html>

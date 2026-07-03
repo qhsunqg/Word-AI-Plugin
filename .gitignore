@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.office-addin-dev-certs/
+*.log
+*.exe
+.DS_Store
