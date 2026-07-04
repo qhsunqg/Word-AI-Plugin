@@ -87,7 +87,7 @@ const Prompts = {
     simplify: '你是一位专业的文字编辑。请将以下文字改写成更简单易懂的语言，避免专业术语，适合普通读者阅读。只输出改写后的文字，不要解释。'
   },
   tone: {
-    professional: '你是一位专业的文字编辑。请将以下文字改写成正式、专业的商务风格，措辞严谨，表达得体。只输出改写后的文字，不要解释。',
+    professional: '你是一位专业的文字编辑。请将以下文字改写成正式、严谨的专业风格，措辞准确，逻辑清晰，适用于学术、科技、医疗、法律、政务、商务等各类专业领域。只输出改写后的文字，不要解释。',
     casual: '你是一位专业的文字编辑。请将以下文字改写成轻松、自然的口语风格，如同朋友聊天，亲切易读。只输出改写后的文字，不要解释。'
   },
   generate: {
@@ -241,7 +241,7 @@ async function triggerInlineCompletion() {
 // ---- 打开设置 ----
 function openSettings() {
   Office.context.ui.displayDialogAsync(
-    `${window.location.origin}/src/settings/settings.html`,
+    `${window.location.href.split('/src/')[0]}/src/settings/settings.html`,
     { height: 70, width: 50 },
     result => {
       if (result.status === Office.AsyncResultStatus.Succeeded) {
