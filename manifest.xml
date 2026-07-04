@@ -17,7 +17,7 @@
   <!-- Icons -->
   <IconUrl DefaultValue="https://qhsunqg.github.io/Word-AI-Plugin/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://qhsunqg.github.io/Word-AI-Plugin/assets/icon-80.png"/>
-  <SupportUrl DefaultValue="https://qhsunqg.github.io/Word-AI-Plugin"/>
+  <SupportUrl DefaultValue="https://github.com/qhsunqg/Word-AI-Plugin"/>
 
   <!-- Hosts -->
   <Hosts>
